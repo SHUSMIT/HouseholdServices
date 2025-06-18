@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Flagged Users</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <h1 class="mt-4">Flagged Users</h1>
+
+        <!-- Flagged Customers -->
+        <h2 class="mt-4">Flagged Customers</h2>
+        <ul class="list-group">
+            {% for customer in flagged_customers %}
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    {{ customer.c_username }}
+                    <form method="POST" action="{{ url_for('unflag_user', username=customer.c_username) }}">
+                        <button type="submit" class="btn btn-warning btn-sm">Unflag</button>
+                    </form>
+                </li>
+            {% else %}
+                <li class="list-group-item">No flagged customers found.</li>
+            {% endfor %}
+        </ul>
+
+        <!-- Flagged Service Professionals -->
+        <h2 class="mt-4">Flagged Service Professionals</h2>
+        <ul class="list-group">
+            {% for professional in flagged_professionals %}
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    {{ professional.sp_username }}
+                    <form method="POST" action="{{ url_for('unflag_professional', username=professional.sp_username) }}">
+                        <button type="submit" class="btn btn-warning btn-sm">Unflag</button>
+                    </form>
+                </li>
+            {% else %}
+                <li class="list-group-item">No flagged professionals found.</li>
+            {% endfor %}
+        </ul>
+
+        <a href="{{ url_for('admin_dashboard') }}" class="btn btn-primary mt-4">Back to Admin Dashboard</a>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
+</body>
+</html>
